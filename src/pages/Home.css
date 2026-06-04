@@ -1,0 +1,156 @@
+.home {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Introduction ── */
+.home-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 48px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.intro-label {
+  font-size: 16px;
+  color: var(--accent);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin: 0 0 4px;
+}
+
+.intro-name {
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--text-h);
+  margin: 0 0 8px;
+  letter-spacing: -2px;
+}
+
+.intro-role {
+  font-size: 20px;
+  color: var(--accent);
+  font-weight: 500;
+  margin: 0 0 24px;
+}
+
+.intro-bio {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--text);
+  max-width: 480px;
+  margin: 0;
+}
+
+.intro-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ── Image placeholders ── */
+.img-placeholder {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 4 / 3;
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  font-size: 14px;
+  background: var(--code-bg);
+}
+
+.img-placeholder--wide {
+  max-width: 100%;
+  aspect-ratio: 16 / 5;
+  margin-bottom: 40px;
+}
+
+/* ── Shared section ── */
+.home-section {
+  padding: 64px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.home-section--alt {
+  background: var(--accent-bg);
+  margin-inline: -24px;
+  padding-inline: 24px;
+  border-bottom: none;
+}
+
+.section-heading {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--text-h);
+  margin: 0 0 40px;
+  text-align: center;
+}
+
+/* ── Skills grid ── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.skill-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+
+.skill-icon {
+  color: var(--accent);
+}
+
+.skill-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-h);
+  margin: 0;
+}
+
+.skill-desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text);
+  margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .home-intro {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 32px 0;
+  }
+
+  .intro-name {
+    font-size: 40px;
+  }
+
+  .intro-bio {
+    max-width: 100%;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-section--alt {
+    margin-inline: -16px;
+    padding-inline: 16px;
+  }
+}
