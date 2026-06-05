@@ -5,6 +5,7 @@ import Portfolio from './pages/Portfolio'
 import Links from './pages/Links'
 import Contact from './pages/Contact'
 import Login from './pages/Login'
+import BackOffice from './pages/BackOffice'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/links" element={<Links />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/backoffice" element={<BackOffice />} />
       </Routes>
     </MainLayout>
   )
