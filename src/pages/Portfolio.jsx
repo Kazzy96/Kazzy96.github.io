@@ -187,7 +187,7 @@ export default function Portfolio() {
 
       {/* ── Download Resume ── */}
       <div className="resume-download">
-        <a href="/resume.pdf" download="KazzyResume.pdf" className="resume-download-btn">
+        <a href="/Resume.pdf" download="KazzyResume.pdf" className="resume-download-btn">
           ⬇ Download Resume (PDF)
         </a>
       </div>
