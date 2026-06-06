@@ -1,0 +1,5 @@
+# Elevator Pitch — Script #1
+
+## :clapper: Full Script (for practice)
+
+*Hey, I'm Kazzy — I'm a full-stack developer who came up through cybersecurity. I spent a few years doing SOC 2 and HITRUST compliance audits and managed detection and response work before making the transition into development, and that background shapes how I think about the things I build. On the technical side, I work with React, React Native, TypeScript, Java, Spring Boot, Node.js, Express, MongoDB, and MySQL — and I also hold a Finance degree, which helps me connect what I'm building to why it actually matters for the business. I have a strong instinct for troubleshooting — when something breaks, I need to know exactly why, not just get it working again. Understanding the root cause and making sure it doesn't happen twice matters as much to me as the fix itself. I ask a lot of questions up front, I communicate well, and I take feedback seriously. I'm newer to development, but I learn fast, and I think the perspective I bring from outside the industry makes me a more well-rounded developer. I'd love to find a team where I can keep growing and start contributing right away.*
