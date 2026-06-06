@@ -50,6 +50,15 @@
   align-items: center;
 }
 
+.headshot-img {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: 12px;
+}
+
 /* ── Image placeholders ── */
 .img-placeholder {
   width: 100%;
@@ -69,6 +78,90 @@
   max-width: 100%;
   aspect-ratio: 16 / 5;
   margin-bottom: 40px;
+}
+
+/* ── Soft Skills Carousel ── */
+.carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.carousel-track {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.carousel-window {
+  flex: 1;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.carousel-window::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-strip {
+  display: flex;
+  gap: 20px;
+}
+
+.carousel-slide {
+  flex: 0 0 260px;
+  scroll-snap-align: start;
+  display: flex;
+}
+
+.carousel-slide .skill-card {
+  flex: 1;
+}
+
+.carousel-btn {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--accent);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.carousel-btn:hover {
+  background: var(--accent-bg);
+  border-color: var(--accent);
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: var(--border);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.carousel-dot--active {
+  background: var(--accent);
+  transform: scale(1.3);
 }
 
 /* ── Shared section ── */
@@ -127,6 +220,34 @@
   line-height: 1.6;
   color: var(--text);
   margin: 0;
+}
+
+/* ── Skills banner ── */
+.skills-banner {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 16px;
+  margin: 0 auto 40px;
+  display: block;
+}
+
+/* ── Skill categories ── */
+.skill-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.category-heading {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin: 0 0 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
 }
 
 /* ── Responsive ── */

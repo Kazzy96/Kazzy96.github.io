@@ -57,6 +57,7 @@ export default function Contact() {
     })
 
     if (error) {
+      console.error('[Contact] Supabase insert error:', error)
       setStatus('error')
       return
     }

@@ -1,97 +1,106 @@
-import { GraduationCap, Briefcase, FolderGit2, Download, CalendarDays } from 'lucide-react'
+import { useState } from 'react'
 import './Portfolio.css'
+
+const CATEGORIES = ['All Projects', 'Frontend', 'Full-Stack', 'Backend', 'Mobile']
 
 const EDUCATION = [
   {
-    institution: "Cégep de l'Outaouais",
-    program: 'Computer Science Technology (DEC)',
-    dates: '2023 – 2026',
-    description:
-      'Specializing in web development, databases, object-oriented programming, and software design principles.',
+    school: 'CodeBoxx Academy',
+    degree: 'Full-Stack Web Development',
+    period: '2023 – 2024',
+    description: 'Intensive full-stack bootcamp covering JavaScript, React, Node.js, databases, and agile development practices.',
+  },
+  {
+    school: 'University of Central Florida',
+    degree: 'Bachelor of Science in Finance',
+    period: 'Class of 2019',
+    description: 'Graduated with a B.S. in Finance, building a strong foundation in financial analysis, markets, and business strategy.',
   },
 ]
 
-const WORK_EXPERIENCE = [
+const WORK = [
   {
-    role: 'Web Developer — Personal Projects',
-    organization: 'Self-Employed',
-    dates: '2024 – Present',
-    bullets: [
-      'Designed and built responsive web applications using React, Vite, and custom CSS.',
-      'Integrated Supabase for authentication, real-time data, and row-level security.',
-      'Set up CI/CD pipelines with GitHub Actions to deploy automatically to GitHub Pages.',
-    ],
+    company: 'Freelance',
+    role: 'Web Developer',
+    period: '2026 – Present',
+    description: 'Building modern web applications and personal projects using React, Supabase, and Vite.',
+  },
+  {
+    company: '360 Advanced',
+    role: 'Cybersecurity Auditor',
+    period: 'April 2024 – February 2026',
+    description:
+      'Conducted rigorous information security audits for clients across multiple industries, specializing in HITRUST CSF and SOC 2 Type I & II examinations. Assessed control environments against established frameworks, identified gaps, and collaborated with client teams to remediate findings. Delivered detailed audit reports and management letters to executive stakeholders, ensuring compliance with regulatory and contractual requirements.',
   },
 ]
 
 const PROJECTS = [
   {
-    name: 'Kazzy96 Portfolio',
-    tech: 'React · Vite · Supabase · CSS · GitHub Actions',
+    name: 'Rocket Elevators Website (Static Front-End)',
+    category: 'Frontend',
     description:
-      'A personal portfolio website built to showcase skills, projects, and professional experience. ' +
-      'Features a public contact form that persists messages to a Supabase database and a ' +
-      'password-protected back-office dashboard for managing inbound messages, with automatic ' +
-      'deployment to GitHub Pages on every push to main.',
-    image: null, // TODO: replace null with imported project screenshot
+      'Rebuilt static website from legacy Smarty template to modern HTML/CSS with brand identity.',
+    image: '/rocket-elevators.png',
+    link: null,
+  },
+  {
+    name: 'Elevator Quote Form',
+    category: 'Frontend',
+    description:
+      'Dynamic pricing calculator with Bootstrap and JavaScript for elevator installations.',
+    image: '/elevator-quote.png',
+    link: 'https://github.com/Kazzy96/Module-2',
+  },
+  {
+    name: 'Introduction to Node.js & Express',
+    category: 'Backend',
+    description:
+      'First backend server with Express, learning RESTful APIs and client-server architecture. Used Postman to test and validate API endpoints throughout development.',
+    image: '/nodejs-express.png',
+    link: null,
+  },
+  {
+    name: 'Blog Platform',
+    category: 'Full-Stack',
+    description:
+      'MERN blog with user authentication, role-based access, post management, and comments.',
+    image: '/blog-platform.png',
+    link: 'https://github.com/Kazzy96/Module-9',
+  },
+  {
+    name: 'ChoreBoard',
+    category: 'Full-Stack',
+    description:
+      'Household chore distribution and tracking app — assign tasks to members, monitor progress, and keep everyone accountable.',
+    image: '/choreboard.png',
+    link: 'https://github.com/Kazzy96/Chore-Chart',
   },
 ]
 
-/* ── Local components ── */
-
-function TimelineEntry({ icon: Icon, title, subtitle, dates, description, bullets }) {
-  return (
-    <div className="timeline-entry">
-      <div className="timeline-icon">
-        <Icon size={20} />
-      </div>
-      <div className="timeline-body">
-        <div className="timeline-header">
-          <div>
-            <h3 className="timeline-title">{title}</h3>
-            <p className="timeline-subtitle">{subtitle}</p>
-          </div>
-          <span className="timeline-dates">
-            <CalendarDays size={14} />
-            {dates}
-          </span>
-        </div>
-        {description && <p className="timeline-desc">{description}</p>}
-        {bullets && (
-          <ul className="timeline-bullets">
-            {bullets.map((b) => (
-              <li key={b}>{b}</li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </div>
-  )
-}
-
-function ProjectCard({ name, tech, description, image }) {
+function ProjectCard({ name, description, image, link }) {
   return (
     <div className="project-card">
+      <h3 className="project-name">{name}</h3>
       <div className="project-image-wrap">
         {image ? (
           <img src={image} alt={`Screenshot of ${name}`} className="project-img" />
         ) : (
-          /* TODO: Replace this div with <img> once project screenshot is ready.
-             Suggested prompt: "clean screenshot mockup of a React portfolio website
-             with purple accent colours, dark header, card-based layout" */
           <div
             className="img-placeholder"
             role="img"
-            aria-label={`${name} — project screenshot coming soon`}
-          >
-            AI image coming soon
-          </div>
+            aria-label={`${name} — screenshot coming soon`}
+          />
         )}
       </div>
       <div className="project-info">
-        <h3 className="project-name">{name}</h3>
-        <p className="project-tech">{tech}</p>
         <p className="project-desc">{description}</p>
+        {link ? (
+          <a href={link} target="_blank" rel="noopener noreferrer" className="project-link">
+            View Details →
+          </a>
+        ) : (
+          <span className="project-link project-link--disabled">View Details →</span>
+        )}
       </div>
     </div>
   )
@@ -100,104 +109,80 @@ function ProjectCard({ name, tech, description, image }) {
 /* ── Page ── */
 
 export default function Portfolio() {
+  const [activeFilter, setActiveFilter] = useState('All Projects')
+
+  const filtered =
+    activeFilter === 'All Projects'
+      ? PROJECTS
+      : PROJECTS.filter((p) => p.category === activeFilter)
+
   return (
     <div className="portfolio">
 
       {/* ── Page header ── */}
       <div className="portfolio-header">
-        <div className="portfolio-header-text">
-          {/* TODO: Replace div below with <img> once AI image is ready.
-              Suggested prompt: "minimalist abstract banner representing a developer's
-              career journey, purple gradient, geometric shapes, flat design" */}
-          <div
-            className="img-placeholder img-placeholder--banner"
-            role="img"
-            aria-label="AI-generated portfolio banner — coming soon"
+        <h1 className="portfolio-title">Portfolio</h1>
+        <p className="portfolio-subtitle">
+          Showcasing web development projects built with modern technologies and AI-assisted development practices.
+        </p>
+      </div>
+
+      {/* ── Filter bar ── */}
+      <div className="portfolio-filters">
+        {CATEGORIES.map((cat) => (
+          <button
+            key={cat}
+            className={`filter-btn${activeFilter === cat ? ' filter-btn--active' : ''}`}
+            onClick={() => setActiveFilter(cat)}
           >
-            AI image coming soon
-          </div>
-          <h1 className="portfolio-title">Portfolio</h1>
-          <p className="portfolio-subtitle">
-            Education, experience, and projects — all in one place.
-          </p>
-        </div>
-        {/* TODO: add resume.pdf to public/ then remove the aria-disabled attribute */}
-        <a
-          href="/resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          download
-          className="resume-btn"
-          aria-label="Download PDF résumé (coming soon)"
-          onClick={(e) => { if (!false) { e.preventDefault() } }}
-          aria-disabled="true"
-        >
-          <Download size={18} />
-          Download Résumé <span className="coming-soon">(coming soon)</span>
-        </a>
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* ── Projects banner ── */}
+      <img src="/portfolio-banner.png" alt="Portfolio" className="section-banner" />
+
+      {/* ── Projects grid ── */}
+      <div className="projects-grid">
+        {filtered.map((p) => (
+          <ProjectCard key={p.name} {...p} />
+        ))}
       </div>
 
       {/* ── Education ── */}
-      <section className="portfolio-section">
-        <h2 className="section-heading">
-          <GraduationCap size={24} />
-          Education
-        </h2>
-        <div className="timeline">
-          {EDUCATION.map((e) => (
-            <TimelineEntry
-              key={e.institution + e.dates}
-              icon={GraduationCap}
-              title={e.program}
-              subtitle={e.institution}
-              dates={e.dates}
-              description={e.description}
-            />
-          ))}
-        </div>
+      <section className="cv-section">
+        <img src="/education-banner.png" alt="Education" className="section-banner" />
+        <h2 className="cv-section-title">Education</h2>
+        {EDUCATION.map((e) => (
+          <div key={e.school} className="cv-card">
+            <div className="cv-card-header">
+              <div>
+                <h3 className="cv-card-name">{e.school}</h3>
+                <p className="cv-card-sub">{e.degree}</p>
+              </div>
+              <span className="cv-card-period">{e.period}</span>
+            </div>
+            <p className="cv-card-desc">{e.description}</p>
+          </div>
+        ))}
       </section>
 
       {/* ── Work Experience ── */}
-      <section className="portfolio-section portfolio-section--alt">
-        <h2 className="section-heading">
-          <Briefcase size={24} />
-          Work Experience
-        </h2>
-        {/* TODO: Replace div below with <img> once AI image is ready.
-            Suggested prompt: "abstract illustration of a person coding at a desk,
-            purple and dark tones, minimal flat design, professional atmosphere" */}
-        <div
-          className="img-placeholder img-placeholder--wide"
-          role="img"
-          aria-label="AI-generated work experience illustration — coming soon"
-        >
-          AI image coming soon
-        </div>
-        <div className="timeline">
-          {WORK_EXPERIENCE.map((e) => (
-            <TimelineEntry
-              key={e.role + e.dates}
-              icon={Briefcase}
-              title={e.role}
-              subtitle={e.organization}
-              dates={e.dates}
-              bullets={e.bullets}
-            />
-          ))}
-        </div>
-      </section>
-
-      {/* ── Projects ── */}
-      <section className="portfolio-section">
-        <h2 className="section-heading">
-          <FolderGit2 size={24} />
-          Projects
-        </h2>
-        <div className="projects-grid">
-          {PROJECTS.map((p) => (
-            <ProjectCard key={p.name} {...p} />
-          ))}
-        </div>
+      <section className="cv-section">
+        <h2 className="cv-section-title">Work Experience</h2>
+        {WORK.map((w) => (
+          <div key={w.company} className="cv-card">
+            <div className="cv-card-header">
+              <div>
+                <h3 className="cv-card-name">{w.company}</h3>
+                <p className="cv-card-sub">{w.role}</p>
+              </div>
+              <span className="cv-card-period">{w.period}</span>
+            </div>
+            <p className="cv-card-desc">{w.description}</p>
+          </div>
+        ))}
       </section>
 
     </div>
